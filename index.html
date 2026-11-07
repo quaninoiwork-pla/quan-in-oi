@@ -34,6 +34,7 @@
             --card-bg: #ffffff;
             --border-color: #eeeeee;
             --header-bg: rgba(255, 255, 255, 0.95);
+            --fab-bg: #ffffff;
         }
 
         /* Theme Tối */
@@ -44,6 +45,7 @@
             --card-bg: #2a2a2a;
             --border-color: #444444;
             --header-bg: rgba(26, 26, 26, 0.95);
+            --fab-bg: #333333;
         }
 
         body {
@@ -98,17 +100,6 @@
             box-shadow: 0 4px 10px rgba(255, 46, 151, 0.2);
         }
 
-        /* Nút Zalo */
-        .btn-zalo {
-            background-color: #0068ff;
-            border-color: #0068ff;
-            color: #ffffff;
-        }
-        .btn-zalo:hover {
-            background-color: transparent;
-            color: #0068ff;
-        }
-
         /* Header & Navigation */
         header {
             position: fixed;
@@ -127,14 +118,27 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 15px 20px;
+            padding: 10px 20px;
         }
 
-        .logo {
+        /* Khu vực Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            height: 45px; /* Điều chỉnh kích thước logo tại đây */
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
             font-size: 24px;
             font-weight: 800;
             color: var(--primary-pink);
-            text-decoration: none;
             text-transform: uppercase;
         }
 
@@ -160,33 +164,6 @@
 
         .nav-links li a:hover {
             color: var(--primary-pink);
-        }
-
-        /* Nút Tắt/Bật Dark Mode */
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        /* Hiệu ứng xoay tròn cho nút Mode */
-        .theme-toggle.spin {
-            animation: spinIcon 0.5s ease-in-out;
-        }
-        
-        @keyframes spinIcon {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(0.8); }
-            100% { transform: rotate(360deg) scale(1); }
         }
 
         /* Hamburger Menu Icon */
@@ -272,6 +249,7 @@
             border-radius: 10px;
             padding: 30px;
             text-align: center;
+            position: relative;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
                         box-shadow 0.5s ease, 
                         background-color 0.3s ease, 
@@ -290,11 +268,52 @@
             color: var(--primary-pink);
         }
 
-        /* Table Bảng Giá */
-        .pricing-table-container {
-            overflow-x: auto;
+        /* THẺ COMBO NỔI BẬT (BÁN CHẠY) */
+        .combo-price {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary-pink);
+            margin: 10px 0;
         }
 
+        .combo-note {
+            font-size: 14px;
+            background: var(--light-bg);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        .highlight-card {
+            border: 2px solid var(--primary-pink);
+            box-shadow: 0 8px 25px rgba(255, 46, 151, 0.15);
+        }
+
+        .badge-hot {
+            position: absolute;
+            top: -18px;
+            right: -15px;
+            background: #ffc107;
+            color: #000;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: pulseBadge 2s infinite;
+        }
+
+        @keyframes pulseBadge {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05) rotate(3deg); }
+            100% { transform: scale(1); }
+        }
+
+        /* Table Bảng Giá */
+        .pricing-table-container { overflow-x: auto; }
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -325,13 +344,8 @@
             vertical-align: middle;
         }
 
-        tr:nth-child(even) td:not(.col-product) {
-            background-color: var(--light-bg);
-        }
-
-        tr:hover td:not(.col-product) { 
-            background-color: rgba(255, 46, 151, 0.1); 
-        }
+        tr:nth-child(even) td:not(.col-product) { background-color: var(--light-bg); }
+        tr:hover td:not(.col-product) { background-color: rgba(255, 46, 151, 0.1); }
 
         /* Contact Section */
         .contact-container {
@@ -358,13 +372,18 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Nút Zalo nổi */
-        .zalo-float {
+        /* CỤM NÚT NỔI GÓC DƯỚI (FAB CONTAINER) */
+        .fab-container {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background-color: #0068ff;
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Khoảng cách giữa 2 nút */
+            z-index: 9999;
+        }
+
+        .fab-btn {
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -372,16 +391,41 @@
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 16px;
-            text-decoration: none;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 9999;
-            animation: pulseZalo 2s infinite;
-            transition: transform 0.3s;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            text-decoration: none;
         }
 
-        .zalo-float:hover {
+        .fab-btn:hover {
             transform: scale(1.1);
+        }
+
+        /* Nút Dark Mode góc dưới */
+        .fab-theme {
+            background-color: var(--fab-bg);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            font-size: 24px;
+        }
+
+        .fab-theme.spin {
+            animation: spinIcon 0.5s ease-in-out;
+        }
+        
+        @keyframes spinIcon {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.8); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Nút Zalo góc dưới */
+        .fab-zalo {
+            background-color: #0068ff;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            animation: pulseZalo 2s infinite;
         }
 
         @keyframes pulseZalo {
@@ -415,7 +459,7 @@
             
             .nav-links {
                 position: absolute;
-                top: 60px;
+                top: 70px;
                 left: 0;
                 width: 100%;
                 background-color: var(--header-bg);
@@ -444,12 +488,14 @@
     <!-- HEADER / NAVIGATION -->
     <header>
         <nav class="navbar">
-            <a href="#home" class="logo">Quán In Ỏi</a>
+            <a href="#home" class="logo-container">
+                <!-- Thay link ảnh logo .png tại đây (Ví dụ: images/logo.png) -->
+                <!-- Nếu chưa có ảnh, tạm thời ảnh sẽ bị lỗi hiển thị nhỏ xíu -->
+                <img src="images/logo.png" alt="Logo Quán In Ỏi" class="logo-img" onerror="this.style.display='none'">
+                <span class="logo-text">Quán In Ỏi</span>
+            </a>
             
             <div class="nav-right">
-                <!-- Nút Tắt/Bật Dark Mode -->
-                <button id="theme-toggle" class="theme-toggle" aria-label="Đổi giao diện">🌙</button>
-
                 <!-- Hamburger Icon cho Mobile -->
                 <div class="hamburger">
                     <span></span>
@@ -460,6 +506,7 @@
 
             <ul class="nav-links">
                 <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#combos">Combo</a></li>
                 <li><a href="#services">Dịch vụ</a></li>
                 <li><a href="#products">Sản phẩm</a></li>
                 <li><a href="#pricing">Bảng giá</a></li>
@@ -473,7 +520,7 @@
         <div class="hero-content">
             <h1>Xin chào đến với <span>Quán In Ỏi</span></h1>
             <p>Trạm in ấn siêu tốc, chất lượng cao với các sản phẩm sáng tạo như ảnh nam châm, in tài liệu chuyên nghiệp.</p>
-            <a href="#products" class="btn">Xem Sản Phẩm Ngay</a>
+            <a href="#combos" class="btn">Xem Set Bán Chạy</a>
         </div>
     </section>
 
@@ -482,6 +529,32 @@
         <h2 class="section-title">Về Chúng Tôi</h2>
         <div style="text-align: center; max-width: 800px; margin: 0 auto;">
             <p>Quán In Ỏi không chỉ là một tiệm in ấn thông thường. Chúng tôi là nơi biến những ý tưởng, kỷ niệm của bạn thành những sản phẩm vật lý sắc nét và độc đáo nhất. Với hệ thống máy in hiện đại, đặc biệt là dòng Epson L8050 với mực 057 sắc nét, chúng tôi cam kết mang lại màu sắc chuẩn xác nhất cho từng bản in.</p>
+        </div>
+    </section>
+
+    <!-- LỰA CHỌN NỔI BẬT (COMBO SETS) -->
+    <section id="combos" class="reveal">
+        <h2 class="section-title">Combo Được Yêu Thích</h2>
+        <div class="grid-container">
+            <!-- Set 5 ảnh -->
+            <div class="card">
+                <h3>Set 5 ảnh nam châm</h3>
+                <div class="combo-price">100k</div>
+                <p class="combo-note">Tương đương 20k / ảnh</p>
+            </div>
+            <!-- Set 20 ảnh -->
+            <div class="card highlight-card">
+                <div class="badge-hot">🔥 BÁN CHẠY</div>
+                <h3>Set 20 ảnh nam châm</h3>
+                <div class="combo-price">360k</div>
+                <p class="combo-note" style="background-color: rgba(255, 46, 151, 0.1); color: var(--primary-pink);">Tương đương 18k / ảnh</p>
+                
+            </div>
+            <div class="card">
+                <h3>Set 50 ảnh nam châm</h3>
+                <div class="combo-price">800k</div>
+                <p class="combo-note">Tương đương 16k / ảnh</p>
+            </div>
         </div>
     </section>
 
@@ -531,7 +604,7 @@
 
     <!-- BẢNG GIÁ THEO SỐ LƯỢNG (TIER PRICING) -->
     <section id="pricing" class="reveal">
-        <h2 class="section-title">Bảng Giá Nam Châm</h2>
+        <h2 class="section-title">Bảng Giá Chi Tiết</h2>
         <div class="pricing-table-container">
             <table>
                 <thead>
@@ -579,7 +652,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p style="text-align: center; margin-top: 15px; font-size: 14px; opacity: 0.7;">* Giá trên áp dụng trực tiếp theo bậc số lượng tương ứng.</p>
+            <p style="text-align: center; margin-top: 15px; font-size: 14px; opacity: 0.7;">* Bảng giá dùng để tra cứu đơn giá lẻ nếu mua số lượng ngoài combo.</p>
         </div>
     </section>
 
@@ -602,15 +675,21 @@
             <div class="zalo-action-box">
                 <h3 style="color: var(--primary-pink); margin-bottom: 15px;">Gửi File Trực Tiếp</h3>
                 <p style="margin-bottom: 20px;">Để tránh tình trạng file thiết kế hoặc ảnh bị nén làm giảm chất lượng bản in, quý khách vui lòng chọn chế độ "Gửi file HD" qua Zalo.</p>
-                <a href="https://zalo.me/0989861341" target="_blank" class="btn btn-zalo">Gửi File Qua Zalo Ngay</a>
+                <a href="https://zalo.me/0989861341" target="_blank" class="btn btn-zalo" style="color: #fff;">Gửi File Qua Zalo Ngay</a>
             </div>
         </div>
     </section>
 
-    <!-- Nút Floating Zalo -->
-    <a href="https://zalo.me/0989861341" target="_blank" class="zalo-float">
-        Zalo
-    </a>
+    <!-- CỤM NÚT FLOATING GÓC DƯỚI PHẢI -->
+    <div class="fab-container">
+        <!-- Nút Theme (nằm trên) -->
+        <button id="theme-toggle" class="fab-btn fab-theme" aria-label="Đổi giao diện">🌙</button>
+        
+        <!-- Nút Zalo (nằm dưới) -->
+        <a href="https://zalo.me/0989861341" target="_blank" class="fab-btn fab-zalo">
+            Zalo
+        </a>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -651,7 +730,7 @@
             });
         });
 
-        // 3. Logic bật/tắt Dark Mode & Xoay Icon
+        // 3. Logic bật/tắt Dark Mode ở nút Floating
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 
@@ -662,13 +741,12 @@
         }
 
         themeToggleBtn.addEventListener('click', () => {
-            // Thêm hiệu ứng xoay (spin), sau 0.5s thì gỡ ra để lần bấm sau xoay tiếp
+            // Hiệu ứng xoay
             themeToggleBtn.classList.add('spin');
             setTimeout(() => {
                 themeToggleBtn.classList.remove('spin');
             }, 500);
 
-            // Chuyển đổi Mode Sáng / Tối
             body.classList.toggle('dark-mode');
             
             if (body.classList.contains('dark-mode')) {
