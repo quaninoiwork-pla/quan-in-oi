@@ -23,9 +23,7 @@
             scroll-behavior: smooth;
         }
 
-        /* 
-         * KHAI BÁO BIẾN MÀU SẮC (SÁNG / TỐI)
-         */
+        /* KHAI BÁO BIẾN MÀU SẮC (SÁNG / TỐI) */
         :root {
             --primary-pink: #ff2e97;
             
@@ -38,7 +36,7 @@
             --header-bg: rgba(255, 255, 255, 0.95);
         }
 
-        /* Theme Tối (Sẽ được JS thêm vào thẻ body) */
+        /* Theme Tối */
         body.dark-mode {
             --bg-color: #1a1a1a;
             --text-color: #f1f1f1;
@@ -100,7 +98,7 @@
             box-shadow: 0 4px 10px rgba(255, 46, 151, 0.2);
         }
 
-        /* Nút Zalo màu xanh đặc trưng */
+        /* Nút Zalo */
         .btn-zalo {
             background-color: #0068ff;
             border-color: #0068ff;
@@ -180,6 +178,17 @@
             transform: scale(1.1);
         }
 
+        /* Hiệu ứng xoay tròn cho nút Mode */
+        .theme-toggle.spin {
+            animation: spinIcon 0.5s ease-in-out;
+        }
+        
+        @keyframes spinIcon {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.8); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
         /* Hamburger Menu Icon */
         .hamburger {
             display: none;
@@ -256,18 +265,22 @@
             gap: 30px;
         }
 
+        /* HIỆU ỨNG THẺ NẢY (SPRING EFFECT) */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.5s ease, 
+                        background-color 0.3s ease, 
+                        border-color 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 46, 151, 0.15);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 46, 151, 0.15);
             border-color: var(--primary-pink);
         }
 
@@ -345,7 +358,7 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Nút Zalo nổi (Floating Action Button) */
+        /* Nút Zalo nổi */
         .zalo-float {
             position: fixed;
             bottom: 25px;
@@ -385,15 +398,15 @@
             padding: 20px;
         }
 
-        /* Scroll Animation */
+        /* HIỆU ỨNG CUỘN TRANG CÓ CHIỀU SÂU (3D REVEAL) */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
+            transform: translateY(60px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* Responsive Mobile */
@@ -422,7 +435,6 @@
             }
 
             .nav-links li { margin: 15px 0; }
-            
             .hero-content h1 { font-size: 36px; }
         }
     </style>
@@ -436,9 +448,7 @@
             
             <div class="nav-right">
                 <!-- Nút Tắt/Bật Dark Mode -->
-                <button id="theme-toggle" class="theme-toggle" aria-label="Đổi giao diện">
-                    🌙
-                </button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Đổi giao diện">🌙</button>
 
                 <!-- Hamburger Icon cho Mobile -->
                 <div class="hamburger">
@@ -502,7 +512,6 @@
         <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
         <div class="grid-container">
             <div class="card">
-                <!-- Đã cập nhật đúng tên ảnh hiển thị tốt trên web của bạn -->
                 <img src="images/anh-nam-cham-65x90.png" alt="Ảnh Nam Châm" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
                 <h3>Ảnh Nam Châm 65x90 mm</h3>
                 <p>Kích thước chuẩn 5.4x7.8 cm. Phủ màng PVC dập dẻo chống nước, nam châm hít tủ lạnh siêu chắc.</p>
@@ -610,7 +619,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        // 1. Hiệu ứng cuộn trang (Scroll Animation)
+        // 1. Hiệu ứng cuộn trang 3D Reveal
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -642,26 +651,31 @@
             });
         });
 
-        // 3. Logic bật/tắt Dark Mode có ghi nhớ bằng localStorage
+        // 3. Logic bật/tắt Dark Mode & Xoay Icon
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 
-        // Kiểm tra xem khách đã từng chọn Dark Mode trước đây chưa
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
-            themeToggleBtn.textContent = '☀️'; // Nếu đang tối thì hiện mặt trời
+            themeToggleBtn.textContent = '☀️'; 
         }
 
-        // Bắt sự kiện bấm nút đổi Theme
         themeToggleBtn.addEventListener('click', () => {
+            // Thêm hiệu ứng xoay (spin), sau 0.5s thì gỡ ra để lần bấm sau xoay tiếp
+            themeToggleBtn.classList.add('spin');
+            setTimeout(() => {
+                themeToggleBtn.classList.remove('spin');
+            }, 500);
+
+            // Chuyển đổi Mode Sáng / Tối
             body.classList.toggle('dark-mode');
             
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); // Lưu trạng thái Tối
+                localStorage.setItem('theme', 'dark');
                 themeToggleBtn.textContent = '☀️'; 
             } else {
-                localStorage.setItem('theme', 'light'); // Lưu trạng thái Sáng
+                localStorage.setItem('theme', 'light');
                 themeToggleBtn.textContent = '🌙'; 
             }
         });
