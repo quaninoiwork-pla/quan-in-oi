@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quán In Ỏi - In Ảnh Nam Châm, Ảnh Thẻ,..pla..pla..</title>
+    <title>Quán In Ỏi - Tiệm In Ấn Trẻ Trung</title>
     
     <!-- Import Font Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,16 +23,37 @@
             scroll-behavior: smooth;
         }
 
-        body {
-            background-color: #ffffff;
-            color: #333333;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
+        /* 
+         * KHAI BÁO BIẾN MÀU SẮC (SÁNG / TỐI)
+         */
         :root {
             --primary-pink: #ff2e97;
+            
+            /* Theme Sáng (Mặc định) */
+            --bg-color: #ffffff;
+            --text-color: #333333;
             --light-bg: #f9f9f9;
+            --card-bg: #ffffff;
+            --border-color: #eeeeee;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Theme Tối (Sẽ được JS thêm vào thẻ body) */
+        body.dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f1f1f1;
+            --light-bg: #242424;
+            --card-bg: #2a2a2a;
+            --border-color: #444444;
+            --header-bg: rgba(26, 26, 26, 0.95);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Nút bấm (Buttons) */
@@ -50,7 +71,7 @@
         }
 
         .btn:hover {
-            background-color: #ffffff;
+            background-color: transparent;
             color: var(--primary-pink);
         }
 
@@ -83,9 +104,10 @@
         .btn-zalo {
             background-color: #0068ff;
             border-color: #0068ff;
+            color: #ffffff;
         }
         .btn-zalo:hover {
-            background-color: #ffffff;
+            background-color: transparent;
             color: #0068ff;
         }
 
@@ -94,10 +116,11 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--header-bg);
             backdrop-filter: blur(5px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             z-index: 1000;
+            transition: background-color 0.3s ease;
         }
 
         .navbar {
@@ -117,6 +140,12 @@
             text-transform: uppercase;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .nav-links {
             list-style: none;
             display: flex;
@@ -126,13 +155,29 @@
 
         .nav-links li a {
             text-decoration: none;
-            color: #333333;
+            color: var(--text-color);
             font-weight: 600;
             transition: color 0.3s;
         }
 
         .nav-links li a:hover {
             color: var(--primary-pink);
+        }
+
+        /* Nút Tắt/Bật Dark Mode */
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
         }
 
         /* Hamburger Menu Icon */
@@ -155,15 +200,9 @@
             transition: all 0.3s ease-in-out;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
+        .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
         /* Cấu trúc Section chung */
         section {
@@ -192,6 +231,7 @@
             background-color: var(--light-bg);
             padding-top: 80px;
             max-width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         .hero-content h1 {
@@ -200,15 +240,13 @@
             margin-bottom: 20px;
         }
         
-        .hero-content h1 span {
-            color: var(--primary-pink);
-        }
+        .hero-content h1 span { color: var(--primary-pink); }
 
         .hero-content p {
             font-size: 18px;
             margin-bottom: 30px;
             max-width: 600px;
-            color: #555;
+            opacity: 0.8;
         }
 
         /* Grid Services & Products */
@@ -219,17 +257,17 @@
         }
 
         .card {
-            background: #ffffff;
-            border: 1px solid #eee;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 46, 151, 0.1);
+            box-shadow: 0 10px 20px rgba(255, 46, 151, 0.15);
             border-color: var(--primary-pink);
         }
 
@@ -248,13 +286,15 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #fff;
+            background-color: var(--card-bg);
+            transition: background-color 0.3s ease;
         }
 
         th, td {
             padding: 15px;
             text-align: center;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
         }
 
         th {
@@ -268,12 +308,16 @@
         .col-product {
             font-weight: 700;
             color: var(--primary-pink);
-            background-color: rgba(255, 46, 151, 0.03);
+            background-color: rgba(255, 46, 151, 0.05);
             vertical-align: middle;
         }
 
+        tr:nth-child(even) td:not(.col-product) {
+            background-color: var(--light-bg);
+        }
+
         tr:hover td:not(.col-product) { 
-            background-color: rgba(255, 46, 151, 0.05); 
+            background-color: rgba(255, 46, 151, 0.1); 
         }
 
         /* Contact Section */
@@ -298,6 +342,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transition: background-color 0.3s ease;
         }
 
         /* Nút Zalo nổi (Floating Action Button) */
@@ -334,7 +379,7 @@
 
         /* Footer */
         footer {
-            background-color: #333;
+            background-color: #111111;
             color: #fff;
             text-align: center;
             padding: 20px;
@@ -353,16 +398,14 @@
 
         /* Responsive Mobile */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
+            .hamburger { display: flex; }
             
             .nav-links {
                 position: absolute;
                 top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: rgba(255, 255, 255, 0.98);
+                background-color: var(--header-bg);
                 flex-direction: column;
                 align-items: center;
                 padding: 20px 0;
@@ -378,13 +421,9 @@
                 pointer-events: all;
             }
 
-            .nav-links li {
-                margin: 15px 0;
-            }
+            .nav-links li { margin: 15px 0; }
             
-            .hero-content h1 {
-                font-size: 36px;
-            }
+            .hero-content h1 { font-size: 36px; }
         }
     </style>
 </head>
@@ -394,12 +433,21 @@
     <header>
         <nav class="navbar">
             <a href="#home" class="logo">Quán In Ỏi</a>
-            <!-- Hamburger Icon -->
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            
+            <div class="nav-right">
+                <!-- Nút Tắt/Bật Dark Mode -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Đổi giao diện">
+                    🌙
+                </button>
+
+                <!-- Hamburger Icon cho Mobile -->
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
+
             <ul class="nav-links">
                 <li><a href="#about">Giới thiệu</a></li>
                 <li><a href="#services">Dịch vụ</a></li>
@@ -454,18 +502,19 @@
         <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
         <div class="grid-container">
             <div class="card">
+                <!-- Đã cập nhật đúng tên ảnh hiển thị tốt trên web của bạn -->
                 <img src="images/anh-nam-cham-65x90.png" alt="Ảnh Nam Châm" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
                 <h3>Ảnh Nam Châm 65x90 mm</h3>
                 <p>Kích thước chuẩn 5.4x7.8 cm. Phủ màng PVC dập dẻo chống nước, nam châm hít tủ lạnh siêu chắc.</p>
             </div>
             <div class="card">
                 <img src="https://via.placeholder.com/300x200/ff2e97/ffffff?text=In+Anh+The" alt="In Ảnh Thẻ" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
-                <h3>In Ảnh Thẻ / Ảnh Polaroids (sắp ra mắt)</h3>
+                <h3>In Ảnh Thẻ / Ảnh Polaroids (sắp ra mắt)</h3>
                 <p>Chất lượng giấy in ảnh cao cấp, màu sắc chân thực và bền màu theo thời gian.</p>
             </div>
             <div class="card">
                 <img src="https://via.placeholder.com/300x200/ff2e97/ffffff?text=In+Decal" alt="In Decal" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
-                <h3>Sticker & Decal (sắp ra mắt)</h3>
+                <h3>Sticker & Decal (sắp ra mắt)</h3>
                 <p>In sticker dán laptop, mũ bảo hiểm, cắt bế mọi hình dáng theo yêu cầu.</p>
             </div>
         </div>
@@ -484,9 +533,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Sản phẩm 1: Ảnh Nam Châm_65x90 -->
                     <tr>
-                        <td rowspan="4" class="col-product">Ảnh Nam Châm_65x90</td>
+                        <td rowspan="4" class="col-product">Ảnh Nam Châm_65x90</td>
                         <td>Từ 1 - 4 chiếc</td>
                         <td>25.000 đ</td>
                     </tr>
@@ -503,9 +551,8 @@
                         <td>16.000 đ</td>
                     </tr>
 
-                    <!-- Sản phẩm 2: Ảnh Nam Châm_65x90_Thiết kế yêu cầu -->
                     <tr>
-                        <td rowspan="4" class="col-product" style="border-top: 2px solid #ff2e97;">Ảnh Nam Châm_65x90_Thiết kế yêu cầu</td>
+                        <td rowspan="4" class="col-product" style="border-top: 2px solid #ff2e97;">Ảnh Nam Châm_65x90_Thiết kế yêu cầu</td>
                         <td style="border-top: 2px solid #ff2e97;">Từ 1 - 4 chiếc</td>
                         <td style="border-top: 2px solid #ff2e97;">30.000 đ</td>
                     </tr>
@@ -523,7 +570,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p style="text-align: center; margin-top: 15px; font-size: 14px; color: #777;">* Giá trên áp dụng trực tiếp theo bậc số lượng tương ứng.</p>
+            <p style="text-align: center; margin-top: 15px; font-size: 14px; opacity: 0.7;">* Giá trên áp dụng trực tiếp theo bậc số lượng tương ứng.</p>
         </div>
     </section>
 
@@ -533,14 +580,14 @@
         <div class="contact-container">
             <div class="contact-info">
                 <h3>Thông Tin Quán In Ỏi</h3>
-                <p style="margin-top: 10px;">📞 <strong>Điện thoại / Zalo:</strong> 0989861341</p>
-                <p style="margin-top: 10px;">🕒 <strong>Giờ làm việc:</strong> Làm việc liên tục</p>
+                <p style="margin-top: 15px;">📞 <strong>Điện thoại / Zalo:</strong> 0989861341</p>
+                <p style="margin-top: 10px;">🕒 <strong>Giờ làm việc:</strong> Làm việc liên tục</p>
                 
                 <h3 style="margin-top: 30px; margin-bottom: 15px;">Theo Dõi Chúng Tôi</h3>
                 <div class="social-links">
-                    <a href="https://www.facebook.com/quaninoi/" target="_blank" class="social-btn">Facebook</a>
-                    <a href="https://www.instagram.com/quaninoi/" target="_blank" class="social-btn">Instagram</a>
-                    <a href="https://www.threads.com/@quaninoi?xmt=AQG0hLHvNU6LfdwmReUl2QlQIxLB-DZ9-migEbgtnV1feaI" target="_blank" class="social-btn">Threads</a>
+                    <a href="https://www.facebook.com/quaninoi/" target="_blank" class="social-btn">📘 Facebook</a>
+                    <a href="https://www.instagram.com/quaninoi/" target="_blank" class="social-btn">📸 Instagram</a>
+                    <a href="https://www.threads.com/@quaninoi?xmt=AQG0hLHvNU6LfdwmReUl2QlQIxLB-DZ9-migEbgtnV1feaI" target="_blank" class="social-btn">🧵 Threads</a>
                 </div>
             </div>
             <div class="zalo-action-box">
@@ -578,7 +625,7 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // 2. Logic cho Hamburger Menu trên Mobile
+        // 2. Logic Menu Mobile
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
         const navItems = document.querySelectorAll('.nav-links li a');
@@ -593,6 +640,30 @@
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
             });
+        });
+
+        // 3. Logic bật/tắt Dark Mode có ghi nhớ bằng localStorage
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Kiểm tra xem khách đã từng chọn Dark Mode trước đây chưa
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.textContent = '☀️'; // Nếu đang tối thì hiện mặt trời
+        }
+
+        // Bắt sự kiện bấm nút đổi Theme
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark'); // Lưu trạng thái Tối
+                themeToggleBtn.textContent = '☀️'; 
+            } else {
+                localStorage.setItem('theme', 'light'); // Lưu trạng thái Sáng
+                themeToggleBtn.textContent = '🌙'; 
+            }
         });
     </script>
 </body>
