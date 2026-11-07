@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quán In Ỏi - Tiệm In Ấn Trẻ Trung</title>
+    
+    <!-- Import Font Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Reset & Cơ bản */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary-pink: #ff2e97;
+            --light-bg: #f9f9f9;
+        }
+
+        /* Nút bấm (Buttons) */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-pink);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-pink);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ffffff;
+            color: var(--primary-pink);
+        }
+
+        /* Nút Mạng Xã Hội */
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .social-btn:hover {
+            background-color: var(--primary-pink);
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(255, 46, 151, 0.2);
+        }
+
+        /* Nút Zalo màu xanh đặc trưng */
+        .btn-zalo {
+            background-color: #0068ff;
+            border-color: #0068ff;
+        }
+        .btn-zalo:hover {
+            background-color: #ffffff;
+            color: #0068ff;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-pink);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary-pink);
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary-pink);
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Cấu trúc Section chung */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: var(--primary-pink);
+            margin-bottom: 40px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        #home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--light-bg);
+            padding-top: 80px;
+            max-width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary-pink);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            color: #555;
+        }
+
+        /* Grid Services & Products */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 46, 151, 0.1);
+            border-color: var(--primary-pink);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin: 15px 0;
+            color: var(--primary-pink);
+        }
+
+        /* Table Bảng Giá */
+        .pricing-table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-pink);
+            color: #ffffff;
+            font-weight: 700;
+            border: 1px solid var(--primary-pink);
+            white-space: nowrap;
+        }
+
+        .col-product {
+            font-weight: 700;
+            color: var(--primary-pink);
+            background-color: rgba(255, 46, 151, 0.03);
+            vertical-align: middle;
+        }
+
+        tr:hover td:not(.col-product) { 
+            background-color: rgba(255, 46, 151, 0.05); 
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info, .zalo-action-box {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .zalo-action-box {
+            background: var(--light-bg);
+            border: 2px dashed var(--primary-pink);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Nút Zalo nổi (Floating Action Button) */
+        .zalo-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #0068ff;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 9999;
+            animation: pulseZalo 2s infinite;
+            transition: transform 0.3s;
+        }
+
+        .zalo-float:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulseZalo {
+            0% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 104, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Scroll Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <nav class="navbar">
+            <a href="#home" class="logo">Quán In Ỏi</a>
+            <!-- Hamburger Icon -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#services">Dịch vụ</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#pricing">Bảng giá</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home">
+        <div class="hero-content">
+            <h1>Xin chào đến với <span>Quán In Ỏi</span></h1>
+            <p>Trạm in ấn siêu tốc, chất lượng cao với các sản phẩm sáng tạo như ảnh nam châm, in tài liệu chuyên nghiệp.</p>
+            <a href="#products" class="btn">Xem Sản Phẩm Ngay</a>
+        </div>
+    </section>
+
+    <!-- GIỚI THIỆU -->
+    <section id="about" class="reveal">
+        <h2 class="section-title">Về Chúng Tôi</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p>Quán In Ỏi không chỉ là một tiệm in ấn thông thường. Chúng tôi là nơi biến những ý tưởng, kỷ niệm của bạn thành những sản phẩm vật lý sắc nét và độc đáo nhất. Với hệ thống máy in hiện đại, đặc biệt là dòng Epson L8050 với mực 057 sắc nét, chúng tôi cam kết mang lại màu sắc chuẩn xác nhất cho từng bản in.</p>
+        </div>
+    </section>
+
+    <!-- DỊCH VỤ -->
+    <section id="services" class="reveal">
+        <h2 class="section-title">Dịch Vụ Của Quán</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h1 style="color: var(--primary-pink);">🖨️</h1>
+                <h3>In Tài Liệu</h3>
+                <p>In đen trắng, in màu sắc nét phục vụ học tập, văn phòng và hồ sơ dự án.</p>
+            </div>
+            <div class="card">
+                <h1 style="color: var(--primary-pink);">✂️</h1>
+                <h3>Cắt Bế & Gia Công</h3>
+                <p>Cắt bế decal, ép plastic, dập dẻo màng PVC bảo vệ siêu bền.</p>
+            </div>
+            <div class="card">
+                <h1 style="color: var(--primary-pink);">🎨</h1>
+                <h3>Thiết Kế Chỉnh Sửa</h3>
+                <p>Hỗ trợ retouch màu sắc, upscaling hình ảnh trước khi in để bản in đạt chất lượng cao nhất.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SẢN PHẨM -->
+    <section id="products" class="reveal">
+        <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200/ff2e97/ffffff?text=Anh+Nam+Cham" alt="Ảnh Nam Châm" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
+                <h3>Ảnh Nam Châm Dập Dẻo</h3>
+                <p>Kích thước chuẩn 5.4x7.8 cm. Phủ màng PVC dập dẻo chống nước, nam châm hít tủ lạnh siêu chắc.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200/ff2e97/ffffff?text=In+Anh+The" alt="In Ảnh Thẻ" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
+                <h3>In Ảnh Thẻ / Ảnh Polaroids</h3>
+                <p>Chất lượng giấy in ảnh cao cấp, màu sắc chân thực và bền màu theo thời gian.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200/ff2e97/ffffff?text=In+Decal" alt="In Decal" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
+                <h3>Sticker & Decal</h3>
+                <p>In sticker dán laptop, mũ bảo hiểm, cắt bế mọi hình dáng theo yêu cầu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BẢNG GIÁ THEO SỐ LƯỢNG (TIER PRICING) -->
+    <section id="pricing" class="reveal">
+        <h2 class="section-title">Bảng Giá Nam Châm</h2>
+        <div class="pricing-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Loại Sản Phẩm</th>
+                        <th>Số Lượng Đặt Hàng</th>
+                        <th>Đơn Giá (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sản phẩm 1: Ảnh Nam Châm_65x90 -->
+                    <tr>
+                        <td rowspan="4" class="col-product">Ảnh Nam Châm_65x90</td>
+                        <td>Từ 1 - 4 chiếc</td>
+                        <td>25.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Từ 5 - 19 chiếc</td>
+                        <td>20.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Từ 20 - 49 chiếc</td>
+                        <td>18.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Từ 50 - 999 chiếc</td>
+                        <td>16.000 đ</td>
+                    </tr>
+
+                    <!-- Sản phẩm 2: Ảnh Nam Châm_65x90_Thiết kế yêu cầu -->
+                    <tr>
+                        <td rowspan="4" class="col-product" style="border-top: 2px solid #ff2e97;">Ảnh Nam Châm_65x90_Thiết kế yêu cầu</td>
+                        <td style="border-top: 2px solid #ff2e97;">Từ 1 - 4 chiếc</td>
+                        <td style="border-top: 2px solid #ff2e97;">30.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Từ 5 - 19 chiếc</td>
+                        <td>29.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Từ 20 - 49 chiếc</td>
+                        <td>28.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Từ 50 - 999 chiếc</td>
+                        <td>27.000 đ</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="text-align: center; margin-top: 15px; font-size: 14px; color: #777;">* Giá trên áp dụng trực tiếp theo bậc số lượng tương ứng.</p>
+        </div>
+    </section>
+
+    <!-- LIÊN HỆ -->
+    <section id="contact" class="reveal">
+        <h2 class="section-title">Liên Hệ Đặt In</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Thông Tin Quán In Ỏi</h3>
+                <p style="margin-top: 10px;">📞 <strong>Điện thoại / Zalo:</strong> 0989861341</p>
+                <p style="margin-top: 10px;">🕒 <strong>Giờ làm việc:</strong> Làm việc liên tục</p>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Theo Dõi Chúng Tôi</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/quaninoi/" target="_blank" class="social-btn">📘 Facebook</a>
+                    <a href="https://www.instagram.com/quaninoi/" target="_blank" class="social-btn">📸 Instagram</a>
+                    <a href="https://www.threads.com/@quaninoi?xmt=AQG0hLHvNU6LfdwmReUl2QlQIxLB-DZ9-migEbgtnV1feaI" target="_blank" class="social-btn">🧵 Threads</a>
+                </div>
+            </div>
+            <div class="zalo-action-box">
+                <h3 style="color: var(--primary-pink); margin-bottom: 15px;">Gửi File Trực Tiếp</h3>
+                <p style="margin-bottom: 20px;">Để tránh tình trạng file thiết kế hoặc ảnh bị nén làm giảm chất lượng bản in, quý khách vui lòng chọn chế độ "Gửi file HD" qua Zalo.</p>
+                <a href="https://zalo.me/0989861341" target="_blank" class="btn btn-zalo">Gửi File Qua Zalo Ngay</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nút Floating Zalo -->
+    <a href="https://zalo.me/0989861341" target="_blank" class="zalo-float">
+        Zalo
+    </a>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Quán In Ỏi. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // 1. Hiệu ứng cuộn trang (Scroll Animation)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // 2. Logic cho Hamburger Menu trên Mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-links li a');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
